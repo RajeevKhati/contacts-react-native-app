@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import base64ImageReducer from "./base64ImageReducer";
+import clickedPhotoUriReducer from "./clickedPhotoUriReducer";
 import contactReducer from "./contactReducer";
 
 const rootReducer = combineReducers({
   contact: contactReducer,
-  base64Image: base64ImageReducer,
+  clickedPhotoUri: clickedPhotoUriReducer,
 });
 
 export default rootReducer;

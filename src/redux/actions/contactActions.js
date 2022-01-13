@@ -50,6 +50,6 @@ export const removeContact = (id) => async (dispatch) => {
   const rowsAffected = await deleteContact(id);
   dispatch({
     type: DELETE_CONTACT,
-    payload: {rowsAffected, id},
+    payload: { rowsAffected, id },
   });
 };

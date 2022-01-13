@@ -1,12 +1,13 @@
-import { Box, Button, Input, VStack, Text } from "native-base";
+import { Avatar, Pressable } from "native-base";
 import React, { useEffect, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import DialogBox from "../components/DialogBox";
 import { useDispatch } from "react-redux";
 import { createContact } from "../redux/actions/contactActions";
 import { useSelector } from "react-redux";
-import { updateBase64Image } from "../redux/actions/base64ImageActions";
+import { updateClickedPhotoUri } from "../redux/actions/clickedPhotoUriActions";
 import ContactForm from "../components/ContactForm";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const AddContact = (props) => {
   const initialValues = {
@@ -19,7 +20,7 @@ const AddContact = (props) => {
 
   const [formValues, setFormValues] = useState(initialValues);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const base64Image = useSelector((state) => state.base64Image);
+  const clickedPhotoUri = useSelector((state) => state.clickedPhotoUri);
 
   const dispatch = useDispatch();
 
@@ -34,23 +35,20 @@ const AddContact = (props) => {
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
-      base64: true,
     });
 
     if (!result.cancelled) {
-      // setImage(result.uri);
-      // console.log("Image picker base64", result.base64); //store this in db
-      setFormValues({ ...formValues, image: result.base64 });
+      setFormValues({ ...formValues, image: result.uri });
     }
   };
 
   useEffect(() => {
-    dispatch(updateBase64Image(null));
+    dispatch(updateClickedPhotoUri(null));
   }, []);
 
   useEffect(() => {
-    setFormValues({ ...formValues, image: base64Image });
-  }, [base64Image]);
+    setFormValues({ ...formValues, image: clickedPhotoUri });
+  }, [clickedPhotoUri]);
 
   const onSave = () => {
     dispatch(createContact(formValues));
@@ -64,6 +62,34 @@ const AddContact = (props) => {
     }
   };
 
+  const renderCam = () => {
+    return (
+      <Avatar alignSelf="center" bg="coolGray.200" size="xl">
+        <MaterialCommunityIcons
+          name="camera-plus-outline"
+          size={35}
+          color="black"
+        />
+      </Avatar>
+    );
+  };
+
+  const renderProfilePic = () => {
+    return (
+      <Avatar
+        alignSelf="center"
+        bg="coolGray.200"
+        size="xl"
+        key={formValues.image}
+        source={{
+          uri: formValues.image,
+        }}
+      >
+        ...Loading
+      </Avatar>
+    );
+  };
+
   return (
     <ContactForm
       formValues={formValues}
@@ -71,14 +97,18 @@ const AddContact = (props) => {
       onSave={onSave}
       buttonText="Add Contact"
     >
-      <Button
-        isDisabled={formValues.image !== null}
+      <Pressable
         onPress={() => setIsDialogOpen(!isDialogOpen)}
+        _pressed={{
+          transform: [
+            {
+              scale: 0.96,
+            },
+          ],
+        }}
       >
-        {formValues.image === null
-          ? "Choose Contact Picture"
-          : "Picture Selected"}
-      </Button>
+        {formValues.image === null ? renderCam() : renderProfilePic()}
+      </Pressable>
       <DialogBox
         isOpen={isDialogOpen}
         setIsOpen={(flag) => setIsDialogOpen(flag)}

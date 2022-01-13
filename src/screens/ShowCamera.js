@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Camera } from "expo-camera";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
-import { updateBase64Image } from "../redux/actions/base64ImageActions";
+import { updateClickedPhotoUri } from "../redux/actions/clickedPhotoUriActions";
 
 const ShowCamera = (props) => {
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -27,27 +27,17 @@ const ShowCamera = (props) => {
 
   const afterPictureSaved = (photo) => {
     props.navigation.goBack();
-    dispatch(updateBase64Image(photo.base64));
+    dispatch(updateClickedPhotoUri(photo.uri));
   };
 
   const _takePicture = () => {
     if (cam.current) {
       const options = {
         quality: 0.5,
-        base64: true,
         skipProcessing: false,
         onPictureSaved: afterPictureSaved,
       };
       cam.current.takePictureAsync(options);
-      // const photo = await cam.current.takePictureAsync(options);
-      // console.log(cam.current.getSupportedRatiosAsync());
-      // const source = photo.uri;
-      // if (source) {
-      //   cam.current.resumePreview();
-      //   // console.log("picture source Base64", photo.base64); //store this in db
-      //   props.navigation.goBack();
-      //   DeviceEventEmitter.emit("event.clickedPhoto", { photo: photo });
-      // }
     }
   };
 

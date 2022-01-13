@@ -1,5 +1,17 @@
 import React from "react";
-import { Box, Button, Input, VStack } from "native-base";
+import {
+  Box,
+  Button,
+  Center,
+  Container,
+  HStack,
+  Icon,
+  IconButton,
+  Input,
+  Text,
+  VStack,
+} from "native-base";
+import { AntDesign } from "@expo/vector-icons";
 
 const ContactForm = ({
   formValues,
@@ -9,12 +21,14 @@ const ContactForm = ({
   buttonText,
 }) => {
   return (
-    <Box>
-      <VStack space={2}>
+    <Box padding={5}>
+      <VStack space={3}>
+        {children[0]}
+        {children[1]}
         <Input
           value={formValues.name}
           w={{
-            base: "75%",
+            base: "100%",
             md: "25%",
           }}
           name="name"
@@ -24,7 +38,7 @@ const ContactForm = ({
         <Input
           value={formValues.mobile}
           w={{
-            base: "75%",
+            base: "100%",
             md: "25%",
           }}
           name="mobile"
@@ -35,7 +49,7 @@ const ContactForm = ({
         <Input
           value={formValues.landline}
           w={{
-            base: "75%",
+            base: "100%",
             md: "25%",
           }}
           onChangeText={(text) => handleChange(text, "landline")}
@@ -43,8 +57,34 @@ const ContactForm = ({
           placeholder="Enter landline"
           keyboardType="numeric"
         />
-        {children}
-        <Button onPress={onSave}>{buttonText}</Button>
+        <HStack space={1}>
+          {formValues.favorite == 0 ? (
+            <IconButton
+              onPress={() => handleChange(1, "favorite")}
+              icon={<Icon as={AntDesign} name="staro" />}
+              _icon={{
+                color: "success.500",
+                size: "sm",
+              }}
+              alignSelf="center"
+            />
+          ) : (
+            <IconButton
+              onPress={() => handleChange(0, "favorite")}
+              icon={<Icon as={AntDesign} name="star" />}
+              _icon={{
+                color: "success.300",
+                size: "sm",
+              }}
+              alignSelf="center"
+            />
+          )}
+          <Text alignSelf="center">Add this contact to your favorites</Text>
+        </HStack>
+        <Button alignSelf="center" width={150} onPress={onSave}>
+          {buttonText}
+        </Button>
+        {children[2]}
       </VStack>
     </Box>
   );
