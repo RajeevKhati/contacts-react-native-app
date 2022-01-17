@@ -13,7 +13,7 @@ import {
   Pressable,
   IconButton,
 } from "native-base";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
 
 const ListOfContacts = ({ contacts, navigation }) => {
   const dispatch = useDispatch();
@@ -52,14 +52,19 @@ const ListOfContacts = ({ contacts, navigation }) => {
             py="2"
           >
             <HStack space={3} justifyContent="space-between">
-              <Avatar
-                size="48px"
-                key={item.image}
-                source={{
-                  // uri: "data:image/jpeg;base64," + item.image,
-                  uri: item.image,
-                }}
-              />
+              {item.image ? (
+                <Avatar
+                  size="48px"
+                  key={item.image}
+                  source={{
+                    uri: item.image,
+                  }}
+                ></Avatar>
+              ) : (
+                <Avatar size="48px" key={item.image}>
+                  <FontAwesome name="user-o" size={24} color="black" />
+                </Avatar>
+              )}
               <VStack>
                 <Text
                   _dark={{
@@ -78,14 +83,16 @@ const ListOfContacts = ({ contacts, navigation }) => {
                 >
                   Mobile - {item.mobile}
                 </Text>
-                <Text
-                  color="coolGray.600"
-                  _dark={{
-                    color: "warmGray.200",
-                  }}
-                >
-                  Landline - {item.landline}
-                </Text>
+                {item.landline && (
+                  <Text
+                    color="coolGray.600"
+                    _dark={{
+                      color: "warmGray.200",
+                    }}
+                  >
+                    Landline - {item.landline}
+                  </Text>
+                )}
               </VStack>
               <Spacer />
               {item.favorite == 0 ? (
@@ -93,7 +100,7 @@ const ListOfContacts = ({ contacts, navigation }) => {
                   onPress={() => favoriteTheCurrentContact(item.id, item)}
                   icon={<Icon as={AntDesign} name="staro" />}
                   _icon={{
-                    color: "coolGray.800",
+                    color: "yellow.400",
                     size: "sm",
                   }}
                   alignSelf="center"
@@ -103,7 +110,7 @@ const ListOfContacts = ({ contacts, navigation }) => {
                   onPress={() => unFavoriteTheCurrentContact(item.id, item)}
                   icon={<Icon as={AntDesign} name="star" />}
                   _icon={{
-                    color: "coolGray.800",
+                    color: "yellow.400",
                     size: "sm",
                   }}
                   alignSelf="center"

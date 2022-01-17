@@ -1,3 +1,4 @@
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Avatar, Pressable } from "native-base";
 import React, { useEffect, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
@@ -7,7 +8,6 @@ import { createContact } from "../redux/actions/contactActions";
 import { useSelector } from "react-redux";
 import { updateClickedPhotoUri } from "../redux/actions/clickedPhotoUriActions";
 import ContactForm from "../components/ContactForm";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const AddContact = (props) => {
   const initialValues = {
@@ -52,6 +52,7 @@ const AddContact = (props) => {
 
   const onSave = () => {
     dispatch(createContact(formValues));
+    props.navigation.navigate("Contacts");
   };
 
   const onImageSelectorType = (type) => {
@@ -64,7 +65,11 @@ const AddContact = (props) => {
 
   const renderCam = () => {
     return (
-      <Avatar alignSelf="center" bg="coolGray.200" size="xl">
+      <Avatar
+        alignSelf="center"
+        bg="coolGray.200"
+        size="xl"
+      >
         <MaterialCommunityIcons
           name="camera-plus-outline"
           size={35}

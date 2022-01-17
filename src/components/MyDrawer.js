@@ -13,8 +13,16 @@ function MyDrawer() {
       <Drawer.Navigator
         drawerContent={(props) => <CustomDrawerContent {...props} />}
       >
-        <Drawer.Screen name="Contacts" component={ContactList} />
-        <Drawer.Screen name="Favourites" component={FavouriteContactList} />
+        <Drawer.Screen
+          name="Contacts"
+          component={ContactList}
+          options={{ title: "Contact List" }}
+        />
+        <Drawer.Screen
+          name="Favorites"
+          component={FavouriteContactList}
+          options={{ title: "Favorite Contact List" }}
+        />
       </Drawer.Navigator>
     </Box>
   );

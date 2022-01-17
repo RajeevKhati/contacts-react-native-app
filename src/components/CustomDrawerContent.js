@@ -17,10 +17,10 @@ const getIcon = (screenName, props, index) => {
           }}
         />
       );
-    case "Favourites":
+    case "Favorites":
       return (
         <Icon
-          color={index === props.state.index ? "primary.500" : "gray.500"}
+          color="danger.500"
           size="5"
           as={MaterialIcons}
           name="favorite"
@@ -29,19 +29,6 @@ const getIcon = (screenName, props, index) => {
           }}
         />
       );
-    default:
-      return undefined;
-  }
-};
-
-const getIconParams = (screenName) => {
-  switch (screenName) {
-    case "Contacts":
-      return {
-        as: "Ant",
-      };
-    case "Favourites":
-      return {};
     default:
       return undefined;
   }

@@ -34,9 +34,21 @@ export default function App() {
               component={MyDrawer}
               options={{ headerShown: false }}
             />
-            <Stack.Screen name="AddContact" component={AddContact} />
-            <Stack.Screen name="UpdateContact" component={UpdateContact} />
-            <Stack.Screen name="Camera" component={ShowCamera} />
+            <Stack.Screen
+              name="AddContact"
+              component={AddContact}
+              options={{ title: "Add New Contact" }}
+            />
+            <Stack.Screen
+              name="UpdateContact"
+              component={UpdateContact}
+              options={{ title: "Update Contact" }}
+            />
+            <Stack.Screen
+              name="Camera"
+              component={ShowCamera}
+              options={{ headerShown: false }}
+            />
           </Stack.Navigator>
         </NativeBaseProvider>
       </NavigationContainer>

@@ -1,9 +1,5 @@
 import {
-  Box,
   Button,
-  Input,
-  VStack,
-  Text,
   Avatar,
   Pressable,
 } from "native-base";
@@ -70,6 +66,7 @@ const UpdateContact = ({ route, navigation }) => {
 
   const onSave = () => {
     dispatch(editContact(route.params.id, formValues));
+    navigation.navigate("Contacts");
   };
 
   const onImageSelectorType = (type) => {

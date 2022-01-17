@@ -1,9 +1,10 @@
-import { View, Text } from "native-base";
+import { View, Text, Pressable } from "native-base";
 import React, { useState, useRef, useEffect } from "react";
 import { Camera } from "expo-camera";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 import { updateClickedPhotoUri } from "../redux/actions/clickedPhotoUriActions";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const ShowCamera = (props) => {
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -45,25 +46,13 @@ const ShowCamera = (props) => {
     <Camera ref={cam} style={styles.camera} type={type}>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={() => _takePicture()}>
-          <Text style={styles.text}> Camera </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            setType(
-              type === Camera.Constants.Type.back
-                ? Camera.Constants.Type.front
-                : Camera.Constants.Type.back
-            );
-          }}
-        >
-          <Text style={styles.text}> Flip </Text>
+          <MaterialIcons name="camera" size={50} color="#ffffff99" />
         </TouchableOpacity>
       </View>
     </Camera>
   );
 };
+
 
 export default ShowCamera;
 
@@ -79,9 +68,10 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     flexDirection: "row",
     margin: 20,
+    
   },
   button: {
-    flex: 0.1,
+    flex: 1,
     alignSelf: "flex-end",
     alignItems: "center",
   },

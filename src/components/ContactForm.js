@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
-  Center,
-  Container,
   HStack,
   Icon,
   IconButton,
@@ -20,12 +18,52 @@ const ContactForm = ({
   onSave,
   buttonText,
 }) => {
+  const initialValues = {
+    name: { isError: false, msg: "" },
+    mobile: { isError: false, msg: "" },
+  };
+  const [formError, setFormError] = useState(initialValues);
+
+  const onFormSubmit = () => {
+    setFormError(initialValues);
+    if (!formValues.name || !formValues.mobile) {
+      if (!formValues.name) {
+        setFormError((prevState) => ({
+          ...prevState,
+          name: { isError: true, msg: "Name is required" },
+        }));
+      }
+      if (!formValues.mobile) {
+        setFormError((prevState) => ({
+          ...prevState,
+          mobile: { isError: true, msg: "Mobile number is required" },
+        }));
+      }
+    } else {
+      onSave();
+    }
+  };
+
+  const renderErrorText = (errorText) => {
+    return (
+      <Text
+        alignSelf="flex-end"
+        style={{ color: "red", margin: 0, padding: 0 }}
+        fontSize="xs"
+      >
+        {errorText}
+      </Text>
+    );
+  };
+
   return (
     <Box padding={5}>
       <VStack space={3}>
         {children[0]}
         {children[1]}
+
         <Input
+          isInvalid={formError.name.isError}
           value={formValues.name}
           w={{
             base: "100%",
@@ -35,7 +73,10 @@ const ContactForm = ({
           onChangeText={(text) => handleChange(text, "name")}
           placeholder="Enter name"
         />
+        {formError.name.isError && renderErrorText(formError.name.msg)}
+
         <Input
+          isInvalid={formError.mobile.isError}
           value={formValues.mobile}
           w={{
             base: "100%",
@@ -46,6 +87,7 @@ const ContactForm = ({
           placeholder="Enter Mobile Number"
           keyboardType="numeric"
         />
+        {formError.mobile.isError && renderErrorText(formError.mobile.msg)}
         <Input
           value={formValues.landline}
           w={{
@@ -79,9 +121,9 @@ const ContactForm = ({
               alignSelf="center"
             />
           )}
-          <Text alignSelf="center">Add this contact to your favorites</Text>
+          <Text alignSelf="center">Add to favorites</Text>
         </HStack>
-        <Button alignSelf="center" width={150} onPress={onSave}>
+        <Button alignSelf="center" width={150} onPress={onFormSubmit}>
           {buttonText}
         </Button>
         {children[2]}

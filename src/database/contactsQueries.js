@@ -9,9 +9,9 @@ export const createTable = () => {
       id INTEGER PRIMARY KEY NOT NULL,
       name TEXT NOT NULL,
       mobile TEXT NOT NULL,
-      landline TEXT NOT NULL,
+      landline TEXT,
       favorite INTEGER NOT NULL,
-      image BLOB NOT NULL
+      image BLOB
     );`;
 
   db.transaction((tx) => {
