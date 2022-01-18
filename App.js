@@ -3,7 +3,6 @@ import { NativeBaseProvider, extendTheme, Drawer } from "native-base";
 import { NavigationContainer } from "@react-navigation/native";
 import MyDrawer from "./src/components/MyDrawer";
 import AddContact from "./src/screens/AddContact";
-import ContactList from "./src/screens/ContactList";
 import { createStackNavigator } from "@react-navigation/stack";
 import ShowCamera from "./src/screens/ShowCamera";
 import { Provider } from "react-redux";

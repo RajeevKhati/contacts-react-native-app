@@ -2,7 +2,7 @@ import * as React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Box } from "native-base";
 import ContactList from "../screens/ContactList";
-import FavouriteContactList from "../screens/FavoriteContactList";
+import FavoriteContactList from "../screens/FavoriteContactList";
 import CustomDrawerContent from "./CustomDrawerContent";
 
 const Drawer = createDrawerNavigator();
@@ -20,7 +20,7 @@ function MyDrawer() {
         />
         <Drawer.Screen
           name="Favorites"
-          component={FavouriteContactList}
+          component={FavoriteContactList}
           options={{ title: "Favorite Contact List" }}
         />
       </Drawer.Navigator>
