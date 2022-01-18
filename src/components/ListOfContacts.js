@@ -2,12 +2,12 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { editContact } from "../redux/actions/contactActions";
 import {
+  Text,
   Box,
   FlatList,
   Avatar,
   HStack,
   VStack,
-  Text,
   Spacer,
   Icon,
   Pressable,
@@ -83,7 +83,7 @@ const ListOfContacts = ({ contacts, navigation }) => {
                 >
                   Mobile - {item.mobile}
                 </Text>
-                {item.landline && (
+                {(item.landline!=="" && item.landline!==null) && (
                   <Text
                     color="coolGray.600"
                     _dark={{
